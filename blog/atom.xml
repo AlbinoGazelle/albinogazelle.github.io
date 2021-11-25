@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albinogazelle.github.io/blog</id>
-    <title>My Site Blog</title>
+    <title>Welcome to my website Blog</title>
     <updated>2021-11-25T15:20:12.324Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albinogazelle.github.io/blog"/>
-    <subtitle>My Site Blog</subtitle>
+    <subtitle>Welcome to my website Blog</subtitle>
     <icon>https://albinogazelle.github.io/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[First blog post!]]></title>
