@@ -2,11 +2,19 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albinogazelle.github.io/blog</id>
     <title>My Site Blog</title>
-    <updated>2021-08-26T00:00:00.000Z</updated>
+    <updated>2021-11-25T15:20:12.324Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albinogazelle.github.io/blog"/>
     <subtitle>My Site Blog</subtitle>
     <icon>https://albinogazelle.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[First blog post!]]></title>
+        <id>First blog post!</id>
+        <link href="https://albinogazelle.github.io/blog/first-blog-post/2021-11-25-first-real-post"/>
+        <updated>2021-11-25T15:20:12.324Z</updated>
+        <summary type="html"><![CDATA[My first docusaurus blog post!]]></summary>
+        <content type="html"><![CDATA[<p>Welcome to my first blog post!</p>]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
         <id>welcome</id>
@@ -22,14 +30,6 @@
             <name>Yangshun Tay</name>
             <uri>https://github.com/yangshun</uri>
         </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[First blog post!]]></title>
-        <id>First blog post!</id>
-        <link href="https://albinogazelle.github.io/blog/2021/08/26/welcome/first-blog-post/2021-11-25-first-real-post"/>
-        <updated>2021-08-26T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[My first docusaurus blog post!]]></summary>
-        <content type="html"><![CDATA[<p>Welcome to my first blog post!</p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[MDX Blog Post]]></title>
