@@ -24,6 +24,14 @@
         </author>
     </entry>
     <entry>
+        <title type="html"><![CDATA[First blog post!]]></title>
+        <id>First blog post!</id>
+        <link href="https://albinogazelle.github.io/blog/2021/08/26/welcome/first-blog-post/2021-11-25-first-real-post"/>
+        <updated>2021-08-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[My first docusaurus blog post!]]></summary>
+        <content type="html"><![CDATA[<p>Welcome to my first blog post!</p>]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[MDX Blog Post]]></title>
         <id>mdx-blog-post</id>
         <link href="https://albinogazelle.github.io/blog/mdx-blog-post"/>
