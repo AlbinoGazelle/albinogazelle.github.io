@@ -4,14 +4,14 @@
         <title>Welcome Blog</title>
         <link>https://albinogazelle.github.io/blog</link>
         <description>Welcome Blog</description>
-        <lastBuildDate>Sat, 27 Nov 2021 03:49:14 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 25 Nov 2021 15:20:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[First blog post!]]></title>
             <link>https://albinogazelle.github.io/blog/first-blog-post/2021-11-25-first-real-post</link>
             <guid>First blog post!</guid>
-            <pubDate>Sat, 27 Nov 2021 03:49:14 GMT</pubDate>
+            <pubDate>Thu, 25 Nov 2021 15:20:12 GMT</pubDate>
             <description><![CDATA[My first docusaurus blog post!]]></description>
             <content:encoded><![CDATA[<p>Welcome to my first blog post!</p>]]></content:encoded>
         </item>
