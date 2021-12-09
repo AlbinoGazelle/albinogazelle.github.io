@@ -2,70 +2,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albinogazelle.github.io/blog</id>
     <title>Welcome Blog</title>
-    <updated>2021-11-25T15:20:12.324Z</updated>
+    <updated>2021-12-09T22:24:27.365Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albinogazelle.github.io/blog"/>
     <subtitle>Welcome Blog</subtitle>
     <icon>https://albinogazelle.github.io/img/favicon.svg</icon>
     <entry>
-        <title type="html"><![CDATA[First blog post!]]></title>
-        <id>First blog post!</id>
-        <link href="https://albinogazelle.github.io/blog/first-blog-post/2021-11-25-first-real-post"/>
-        <updated>2021-11-25T15:20:12.324Z</updated>
-        <summary type="html"><![CDATA[My first docusaurus blog post!]]></summary>
-        <content type="html"><![CDATA[<p>Welcome to my first blog post!</p>]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Welcome]]></title>
-        <id>welcome</id>
-        <link href="https://albinogazelle.github.io/blog/welcome"/>
-        <updated>2021-08-26T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Docusaurus blogging features are powered by the blog plugin.]]></summary>
-        <content type="html"><![CDATA[<p><a href="https://docusaurus.io/docs/blog">Docusaurus blogging features</a> are powered by the <a href="https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog">blog plugin</a>.</p><p>Simply add Markdown files (or folders) to the <code>blog</code> directory.</p><p>Regular blog authors can be added to <code>authors.yml</code>.</p><p>The blog post date can be extracted from filenames, such as:</p><ul><li><code>2019-05-30-welcome.md</code></li><li><code>2019-05-30-welcome/index.md</code></li></ul><p>A blog post folder can be convenient to co-locate blog post images:</p><p><img src="./docusaurus-plushie-banner.jpeg" alt="Docusaurus Plushie"/></p><p>The blog supports tags as well!</p><p><strong>And if you don&#x27;t want a blog</strong>: just delete this directory, and use <code>blog: false</code> in your Docusaurus config.</p>]]></content>
+        <title type="html"><![CDATA[Network Monitoring On A Budget]]></title>
+        <id>network_mon</id>
+        <link href="https://albinogazelle.github.io/blog/network_mon"/>
+        <updated>2021-12-09T22:24:27.365Z</updated>
+        <summary type="html"><![CDATA[I was fairly bored over thanksgiving weekend so I thought it'll be a good time to finally setup some home network monitoring I've been wanting to do for awhile. I had some raspberry pi 4's collecting dust so I decided to use them as hosts.]]></summary>
+        <content type="html"><![CDATA[<p>I was fairly bored over thanksgiving weekend so I thought it&#x27;ll be a good time to finally setup some home network monitoring I&#x27;ve been wanting to do for awhile. I had some raspberry pi 4&#x27;s collecting dust so I decided to use them as hosts.</p><h2>Materials</h2><p>Two Raspberry Pi 4&#x27;s</p><p>Any network switch capable of port mirroring.</p><p>Spare ethernet cables for connecting everything</p><p>Micro SD card reader (The Pi&#x27;s come with micro SD cards but you&#x27;ll need some way to format them) </p><h2>Getting Started</h2><p>The first thing you&#x27;ll want to do is format each SD card (you should have two). Select the raspian (32-bit) image using the Pi imager available on the raspberry pi foundations website. If you don&#x27;t feel like plugging in keyboards, mice and monitors you can create a file called &quot;ssh&quot; and put it in the root directory of the boot partition of the SD card. This will enable ssh on startup then you can use your router to find it&#x27;s IP address and connect.</p><p>Set up port mirroring on your switch and connect one Pi to that port. This will be the Pi you&#x27;ll be installing ntop on.</p><h2>Installation</h2><p>Install ntop on the Pi connected to the mirrored port. Once installed you should be able to navigate to it&#x27;s web interface at http://insert_pi_ip_here:3000</p><p>If everythings correctly configured, you should see every device on your network and the traffic associated with each device.</p><p>For extra control over your network, you can configure the second pi as a DNS server using pi-hole. This enable more data collection and allows you to block ads throughout your entire network.</p><h2>What&#x27;s Next</h2><p>Ntop has a very robust alert system. Do some research and figure out what alerts you want on your own network. I personally have alerts setup for receiving data from select countries or if any of my hosts go down.</p><h2>Conclusion</h2><p>Overall you should have a very robust and configurable network monitoring system for about $80. Ntop allows for a lot of customization and configuration to suit whatever needs you might have while pi-hole allows for more configuration of your network as a whole and network wide ad blocking.</p>]]></content>
         <author>
-            <name>Sébastien Lorber</name>
-            <uri>https://sebastienlorber.com</uri>
-        </author>
-        <author>
-            <name>Yangshun Tay</name>
-            <uri>https://github.com/yangshun</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[MDX Blog Post]]></title>
-        <id>mdx-blog-post</id>
-        <link href="https://albinogazelle.github.io/blog/mdx-blog-post"/>
-        <updated>2021-08-01T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></summary>
-        <content type="html"><![CDATA[<p>Blog posts support <a href="https://docusaurus.io/docs/markdown-features">Docusaurus Markdown features</a>, such as <a href="https://mdxjs.com/">MDX</a>.</p><p>:::tip</p><p>Use the power of React to create interactive blog posts.</p><pre><code class="language-js">&lt;button onClick={() =&gt; alert(&#x27;button clicked!&#x27;)}&gt;Click me!&lt;/button&gt;
-</code></pre><button>Click me!</button><p>:::</p>]]></content>
-        <author>
-            <name>Sébastien Lorber</name>
-            <uri>https://sebastienlorber.com</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Long Blog Post]]></title>
-        <id>long-blog-post</id>
-        <link href="https://albinogazelle.github.io/blog/long-blog-post"/>
-        <updated>2019-05-29T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[This is the summary of a very long blog post,]]></summary>
-        <content type="html"><![CDATA[<p>This is the summary of a very long blog post,</p><p>Use a <code>&lt;!--</code> <code>truncate</code> <code>--&gt;</code> comment to limit blog post size in the list view.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content>
-        <author>
-            <name>Endilie Yacop Sucipto</name>
-            <uri>https://github.com/endiliey</uri>
-        </author>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[First Blog Post]]></title>
-        <id>first-blog-post</id>
-        <link href="https://albinogazelle.github.io/blog/first-blog-post"/>
-        <updated>2019-05-28T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet]]></summary>
-        <content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet</p>]]></content>
-        <author>
-            <name>Gao Wei</name>
-            <uri>https://github.com/wgao19</uri>
+            <name>Nathan Burns</name>
+            <uri>https://nburns.tech</uri>
         </author>
     </entry>
 </feed>
