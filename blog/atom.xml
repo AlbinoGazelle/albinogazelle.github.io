@@ -2,13 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albinogazelle.github.io/blog</id>
     <title>Nathan's Website Blog</title>
-    <updated>2021-12-13T22:02:26.458Z</updated>
+    <updated>2021-12-13T22:36:16.208Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albinogazelle.github.io/blog"/>
     <subtitle>Nathan's Website Blog</subtitle>
     <icon>https://albinogazelle.github.io/img/favicon.svg</icon>
     <entry>
-        <title type="html"><![CDATA[The Code Book]]></title>
+        <title type="html"><![CDATA[Current Reading List]]></title>
+        <id>reading_list</id>
+        <link href="https://albinogazelle.github.io/blog/reading_list"/>
+        <updated>2021-12-13T22:36:16.208Z</updated>
+        <summary type="html"><![CDATA[Here's a list of what i'm currently reading or books I plan on reading in the future.]]></summary>
+        <content type="html"><![CDATA[<p>Here&#x27;s a list of what i&#x27;m currently reading or books I plan on reading in the future.</p><p>Make sure to keep an eye on my <a href="/blog">blog</a> for reviews for these books once I finish them.</p><h3>Security Engineering: A Guide to Building Dependable Distributed Systems by Ross Anderson</h3><p>I&#x27;m about halfway through this book and it&#x27;s already changed how I look at systems and system security. Absolutely amazing and a required read for any security professional, no matter the field.</p><h3>Project Hail Mary by Andy Weir</h3><p>Looking to branch into Sci-Fi more and this was recommended to me by a friend.</p><h3>Hyperion by Dan Simmons</h3><p>Finished reading Dune and someone told me this was fairly similar, also Sci-Fi.</p><h3>Lights Out: Pride, Delusion, And The Fall Of General Electric</h3><p>This was on Bill Gates 2021 reading list, so decided to check it out.</p><h3>Operator Handbook: Red Team + OSINT + Blue Team by Netmux</h3><p>Using this book as a basis for our blue team documentation for the WWU Cyber Defense team.</p>]]></content>
+        <author>
+            <name>Nathan Burns</name>
+            <uri>https://nburns.tech</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Book Review - The Code Book]]></title>
         <id>code_book</id>
         <link href="https://albinogazelle.github.io/blog/code_book"/>
         <updated>2021-12-13T22:02:26.458Z</updated>

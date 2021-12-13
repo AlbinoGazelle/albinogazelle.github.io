@@ -4,11 +4,19 @@
         <title>Nathan's Website Blog</title>
         <link>https://albinogazelle.github.io/blog</link>
         <description>Nathan's Website Blog</description>
-        <lastBuildDate>Mon, 13 Dec 2021 22:02:26 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 13 Dec 2021 22:36:16 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
-            <title><![CDATA[The Code Book]]></title>
+            <title><![CDATA[Current Reading List]]></title>
+            <link>https://albinogazelle.github.io/blog/reading_list</link>
+            <guid>reading_list</guid>
+            <pubDate>Mon, 13 Dec 2021 22:36:16 GMT</pubDate>
+            <description><![CDATA[Here's a list of what i'm currently reading or books I plan on reading in the future.]]></description>
+            <content:encoded><![CDATA[<p>Here&#x27;s a list of what i&#x27;m currently reading or books I plan on reading in the future.</p><p>Make sure to keep an eye on my <a href="/blog">blog</a> for reviews for these books once I finish them.</p><h3>Security Engineering: A Guide to Building Dependable Distributed Systems by Ross Anderson</h3><p>I&#x27;m about halfway through this book and it&#x27;s already changed how I look at systems and system security. Absolutely amazing and a required read for any security professional, no matter the field.</p><h3>Project Hail Mary by Andy Weir</h3><p>Looking to branch into Sci-Fi more and this was recommended to me by a friend.</p><h3>Hyperion by Dan Simmons</h3><p>Finished reading Dune and someone told me this was fairly similar, also Sci-Fi.</p><h3>Lights Out: Pride, Delusion, And The Fall Of General Electric</h3><p>This was on Bill Gates 2021 reading list, so decided to check it out.</p><h3>Operator Handbook: Red Team + OSINT + Blue Team by Netmux</h3><p>Using this book as a basis for our blue team documentation for the WWU Cyber Defense team.</p>]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Book Review - The Code Book]]></title>
             <link>https://albinogazelle.github.io/blog/code_book</link>
             <guid>code_book</guid>
             <pubDate>Mon, 13 Dec 2021 22:02:26 GMT</pubDate>
