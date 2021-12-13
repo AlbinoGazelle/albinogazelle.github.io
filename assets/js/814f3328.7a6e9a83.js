@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"The Code Book","permalink":"/blog/code_book"},{"title":"Network Monitoring On A Budget","permalink":"/blog/network_mon"}]}')}}]);
