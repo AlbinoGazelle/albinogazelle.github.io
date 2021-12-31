@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://albinogazelle.github.io/blog</id>
+    <id>https://nburns.tech/blog</id>
     <title>Nathan's Blog Blog</title>
     <updated>2021-12-28T07:14:16.592Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://albinogazelle.github.io/blog"/>
+    <link rel="alternate" href="https://nburns.tech/blog"/>
     <subtitle>Nathan's Blog Blog</subtitle>
-    <icon>https://albinogazelle.github.io/img/favicon.svg</icon>
+    <icon>https://nburns.tech/img/favicon.svg</icon>
     <entry>
         <title type="html"><![CDATA[Current Reading List]]></title>
         <id>reading_list</id>
-        <link href="https://albinogazelle.github.io/blog/reading_list"/>
+        <link href="https://nburns.tech/blog/reading_list"/>
         <updated>2021-12-28T07:14:16.592Z</updated>
         <summary type="html"><![CDATA[Here's a list of what i'm currently reading or books I plan on reading in the future.]]></summary>
         <content type="html"><![CDATA[<p>Here&#x27;s a list of what i&#x27;m currently reading or books I plan on reading in the future.</p><p>Make sure to keep an eye on my <a href="/blog">blog</a> for reviews for these books once I finish them.</p><h3>Security Engineering: A Guide to Building Dependable Distributed Systems by Ross Anderson</h3><p>I&#x27;m about halfway through this book and it&#x27;s already changed how I look at systems and system security. Absolutely amazing and a required read for any security professional, no matter the field.</p><h3>Project Hail Mary by Andy Weir</h3><p>Looking to branch into Sci-Fi more and this was recommended to me by a friend.</p><h3>Hyperion by Dan Simmons</h3><p>Finished reading Dune and someone told me this was fairly similar, also Sci-Fi.</p><h3>Lights Out: Pride, Delusion, And The Fall Of General Electric</h3><p>This was on Bill Gates 2021 reading list, so decided to check it out.</p><h3>Operator Handbook: Red Team + OSINT + Blue Team by Netmux</h3><p>Using this book as a basis for our blue team documentation for the WWU Cyber Defense team.</p>]]></content>
@@ -22,7 +22,7 @@
     <entry>
         <title type="html"><![CDATA[Security Engineering Notes]]></title>
         <id>security_engineering_notes</id>
-        <link href="https://albinogazelle.github.io/blog/security_engineering_notes"/>
+        <link href="https://nburns.tech/blog/security_engineering_notes"/>
         <updated>2021-12-28T07:14:16.587Z</updated>
         <summary type="html"><![CDATA[This is a collection of my notes while reading "Security Engineering: A Guide To Building Dependable Distributed Systems" by Ross Anderson.]]></summary>
         <content type="html"><![CDATA[<p>This is a collection of my notes while reading &quot;Security Engineering: A Guide To Building Dependable Distributed Systems&quot; by Ross Anderson.<br/>
@@ -35,7 +35,7 @@
     <entry>
         <title type="html"><![CDATA[Book Review - The Code Book]]></title>
         <id>code_book</id>
-        <link href="https://albinogazelle.github.io/blog/code_book"/>
+        <link href="https://nburns.tech/blog/code_book"/>
         <updated>2021-12-28T07:14:16.582Z</updated>
         <summary type="html"><![CDATA[Author: Simon Singh]]></summary>
         <content type="html"><![CDATA[<h3>Author: Simon Singh</h3><p>A masterclass in both history and technical writing, Mr. Singh gives an eye-opening insight into the history of cryptography. Not only does he give an excellent historical perspective, but also a great technical one.</p><p>The content regarding Alan Turing life and also Quantum Cryptography were the most thought provoking for me. The idea of a cipher that in order to be broke, the very laws that dictate our understanding of the universe but also be broken is tremendous to me. The great but also tragic life of Alan Turning was the chapter that effected me the most, a genius of cryptography whose life was cut short by a barbaric government.</p><p>I highly recommend this book to the aspiring Cryptographer and Historian alike.</p>]]></content>

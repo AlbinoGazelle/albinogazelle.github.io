@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Nathan's Blog Blog</title>
-        <link>https://albinogazelle.github.io/blog</link>
+        <link>https://nburns.tech/blog</link>
         <description>Nathan's Blog Blog</description>
         <lastBuildDate>Tue, 28 Dec 2021 07:14:16 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Current Reading List]]></title>
-            <link>https://albinogazelle.github.io/blog/reading_list</link>
+            <link>https://nburns.tech/blog/reading_list</link>
             <guid>reading_list</guid>
             <pubDate>Tue, 28 Dec 2021 07:14:16 GMT</pubDate>
             <description><![CDATA[Here's a list of what i'm currently reading or books I plan on reading in the future.]]></description>
@@ -17,7 +17,7 @@
         </item>
         <item>
             <title><![CDATA[Security Engineering Notes]]></title>
-            <link>https://albinogazelle.github.io/blog/security_engineering_notes</link>
+            <link>https://nburns.tech/blog/security_engineering_notes</link>
             <guid>security_engineering_notes</guid>
             <pubDate>Tue, 28 Dec 2021 07:14:16 GMT</pubDate>
             <description><![CDATA[This is a collection of my notes while reading "Security Engineering: A Guide To Building Dependable Distributed Systems" by Ross Anderson.]]></description>
@@ -26,7 +26,7 @@
         </item>
         <item>
             <title><![CDATA[Book Review - The Code Book]]></title>
-            <link>https://albinogazelle.github.io/blog/code_book</link>
+            <link>https://nburns.tech/blog/code_book</link>
             <guid>code_book</guid>
             <pubDate>Tue, 28 Dec 2021 07:14:16 GMT</pubDate>
             <description><![CDATA[Author: Simon Singh]]></description>
