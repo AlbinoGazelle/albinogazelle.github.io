@@ -2,16 +2,16 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nburns.tech/blog</id>
     <title>Nathan's Blog Blog</title>
-    <updated>2022-01-06T07:09:55.534Z</updated>
+    <updated>2022-01-06T19:49:52.417Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://nburns.tech/blog"/>
     <subtitle>Nathan's Blog Blog</subtitle>
     <icon>https://nburns.tech/img/favicon.svg</icon>
     <entry>
-        <title type="html"><![CDATA[Analysis of Mirari Malware]]></title>
+        <title type="html"><![CDATA[Analysis of Mirai Malware]]></title>
         <id>mirai</id>
         <link href="https://nburns.tech/blog/mirai"/>
-        <updated>2022-01-06T07:09:55.534Z</updated>
+        <updated>2022-01-06T19:49:52.417Z</updated>
         <summary type="html"><![CDATA[Intro]]></summary>
         <content type="html"><![CDATA[<h2>Intro</h2><p>I recently found out Google Cloud offers $300 for first time users, so I figured what better way to spend that than deploying a honeypot? While this blog post won&#x27;t go into detail on deploying one yourself (keep at eye on my <a href="/docs/welcome">docs</a> for a that) it will go into detail analyzing a malware sample that I discovered being deployed against it.</p><h2>Timeline and Recon</h2><p>On January 4th 2022 at ~20:30 UTC my honeypot deployed in Oregon was attacked by 205.185.123.62 hosted in <a href="https://www.iplocationtools.com/205.185.123.62">Las Vegas, Nevada.</a>  It&#x27;s hosted by &quot;Frantech Solutions&quot; which a cursoury google search gives results such as &quot;FranTech Solutions is <strong>a high fraud risk ISP</strong>..&quot; and <a href="https://scamalytics.com/ip/isp/frantech-solutions">scamalytics</a> gives it a score of 64.</p><p>My honeypot was attacked a total of 24 times from this IP address. Starting at 20:30 UTC and ending at 11:00 UTC. </p><h2>Attack Vector</h2><p>This attack was caught by the <a href="https://github.com/huuck/ADBHoney">ADBHoney</a> service running on my honeypot. ADBHoney describes itself as a &quot;Low interaction honeypot designed for Android Debug Bridge over TCP/IP.&quot; Now I have some experience with ADB in a prior CTF so I understood a small bit of what this honeypot does. ADB is the Andriod Debug Bridge. It&#x27;s essentially a protocol/tool that allows developers to communicate with andriod devices. It&#x27;s used prominately in the emulation part of Andriod Studio. Unfortunately for us, the TCP section of the ADB protocol <strong>does not</strong> have any kind of authentication, leaving it open to attacks. This is what the honeypot sets up to gather samples.</p><h2>Payload</h2><p><img src="/img/mirai/initial_payload.png" alt="image"/>
 <em>Figure 1: Inital Attack</em></p><p>As we can see in Figure 1, the inital attack involves moving into the tmp directory, using <a href="https://busybox.net/">busybox</a> to execute wget to get another sample and executes it. It repeats this twice, opting for curl for the second sample. Switching tools like that is common in malware droppers, allowing it to be ran on more hosts. A potential target could be missing either curl or wget, but missing both would be unlikely. Both <strong>w.sh</strong> and <strong>c.sh</strong> are essentially the same file as seen below. The only difference being what tool is used to download the next stage.</p><p><img src="/img/mirai/wget.png" alt="image"/>
