@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[5457],{9530:function(e){e.exports=JSON.parse('{"allTagsPath":"/blog/tags","slug":"/blog/tags/destructive","name":"destructive","count":1,"permalink":"/blog/tags/destructive"}')}}]);
