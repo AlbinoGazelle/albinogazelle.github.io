@@ -2,11 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nburns.tech/blog</id>
     <title>Nathan's Blog Blog</title>
-    <updated>2022-02-13T05:28:55.000Z</updated>
+    <updated>2022-04-24T01:02:51.692Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://nburns.tech/blog"/>
     <subtitle>Nathan's Blog Blog</subtitle>
     <icon>https://nburns.tech/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[Fun With Threat Hunting - Malicious User]]></title>
+        <id>fun_with_hunting_user</id>
+        <link href="https://nburns.tech/blog/fun_with_hunting_user"/>
+        <updated>2022-04-24T01:02:51.692Z</updated>
+        <summary type="html"><![CDATA[UNDER CONSTRUCTION]]></summary>
+        <content type="html"><![CDATA[<p>UNDER CONSTRUCTION</p>]]></content>
+        <author>
+            <name>Nathan Burns</name>
+            <uri>https://nburns.tech</uri>
+        </author>
+        <category label="threat hunting" term="threat hunting"/>
+        <category label="detection" term="detection"/>
+        <category label="purple team" term="purple team"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Introductory Malware Analysis Lab]]></title>
         <id>malware_analysis_lab</id>

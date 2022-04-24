@@ -4,10 +4,21 @@
         <title>Nathan's Blog Blog</title>
         <link>https://nburns.tech/blog</link>
         <description>Nathan's Blog Blog</description>
-        <lastBuildDate>Sun, 13 Feb 2022 05:28:55 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 24 Apr 2022 01:02:51 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Fun With Threat Hunting - Malicious User]]></title>
+            <link>https://nburns.tech/blog/fun_with_hunting_user</link>
+            <guid>fun_with_hunting_user</guid>
+            <pubDate>Sun, 24 Apr 2022 01:02:51 GMT</pubDate>
+            <description><![CDATA[UNDER CONSTRUCTION]]></description>
+            <content:encoded><![CDATA[<p>UNDER CONSTRUCTION</p>]]></content:encoded>
+            <category>threat hunting</category>
+            <category>detection</category>
+            <category>purple team</category>
+        </item>
         <item>
             <title><![CDATA[Introductory Malware Analysis Lab]]></title>
             <link>https://nburns.tech/blog/malware_analysis_lab</link>
