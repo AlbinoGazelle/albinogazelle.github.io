@@ -12,7 +12,7 @@ tags:
 
 Welcome to Hugo theme Stack. This is your first post. Edit or delete it, then start writing!
 
-For more information about this theme, check the documentation: https://docs.stack.jimmycai.com/
+For more information about this theme, check the documentation: https://docs.stack.jimmycai.com
 
 
 > Photo by [Pawel Czerwinski](https://unsplash.com/@pawel_czerwinski) on [Unsplash](https://unsplash.com/)
