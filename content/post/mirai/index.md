@@ -1,6 +1,6 @@
 ---
 title: Analysis of Mirai Malware
-description: Welcome to Hugo Theme Stack
+description: Reverse Engineering Mirai Botnet
 slug: mirai_botnet
 date: 2022-01-04 00:00:00+0000
 image: https://m.media-amazon.com/images/I/41ZJaKEDzNL._AC_SX355_.jpg

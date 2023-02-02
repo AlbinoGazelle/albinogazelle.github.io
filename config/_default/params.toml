@@ -2,6 +2,8 @@
 mainSections = ["post"]
 # Output page's full content in RSS.
 rssFullContent = true
+# Define favicon location.
+favicon = "favicon.svg"
 
 [footer]
 since = 2020
