@@ -26,7 +26,7 @@ jobs:
         run: hugo --minify
 
       - name: Configure Domain
-        run: echo "nburns.tech" > CNAME
+        run: echo "nburns.tech" > ./public/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
