@@ -1,1 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on Nathan's Blog</title><link>https://demo.stack.jimmycai.com/tags/</link><description>Recent content in Tags on Nathan's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 16 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>Destructive Malware</title><link>https://demo.stack.jimmycai.com/tags/destructive-malware/</link><pubDate>Sun, 16 Jan 2022 00:00:00 +0000</pubDate><guid>https://demo.stack.jimmycai.com/tags/destructive-malware/</guid><description/></item><item><title>Yara</title><link>https://demo.stack.jimmycai.com/tags/yara/</link><pubDate>Sun, 16 Jan 2022 00:00:00 +0000</pubDate><guid>https://demo.stack.jimmycai.com/tags/yara/</guid><description/></item><item><title>Botnet</title><link>https://demo.stack.jimmycai.com/tags/botnet/</link><pubDate>Tue, 04 Jan 2022 00:00:00 +0000</pubDate><guid>https://demo.stack.jimmycai.com/tags/botnet/</guid><description/></item><item><title>Honeypot</title><link>https://demo.stack.jimmycai.com/tags/honeypot/</link><pubDate>Tue, 04 Jan 2022 00:00:00 +0000</pubDate><guid>https://demo.stack.jimmycai.com/tags/honeypot/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on nburns.tech</title>
+    <link>https://nburns.tech/tags/</link>
+    <description>Recent content in Tags on nburns.tech</description>
+    <image>
+      <title>nburns.tech</title>
+      <url>https://nburns.tech/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://nburns.tech/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://nburns.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

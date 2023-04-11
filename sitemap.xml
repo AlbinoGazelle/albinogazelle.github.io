@@ -1,1 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>https://demo.stack.jimmycai.com/</loc><lastmod>2022-03-06T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/archives/</loc><lastmod>2022-03-06T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/page/</loc><lastmod>2022-03-06T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/categories/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/p/whispergate/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/tags/destructive-malware/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/post/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/categories/reverse-engineering/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/tags/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/tags/yara/</loc><lastmod>2022-01-16T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/p/mirai_botnet/</loc><lastmod>2022-01-04T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/tags/botnet/</loc><lastmod>2022-01-04T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/tags/honeypot/</loc><lastmod>2022-01-04T00:00:00+00:00</lastmod></url><url><loc>https://demo.stack.jimmycai.com/categories/detection-engineering/</loc></url><url><loc>https://demo.stack.jimmycai.com/links/</loc></url><url><loc>https://demo.stack.jimmycai.com/search/</loc></url><url><loc>https://demo.stack.jimmycai.com/categories/threat-hunting/</loc></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://nburns.tech/posts/example/</loc>
+    <lastmod>2023-04-08T13:28:18-07:00</lastmod>
+  </url><url>
+    <loc>https://nburns.tech/</loc>
+    <lastmod>2023-04-08T13:28:18-07:00</lastmod>
+  </url><url>
+    <loc>https://nburns.tech/posts/</loc>
+    <lastmod>2023-04-08T13:28:18-07:00</lastmod>
+  </url><url>
+    <loc>https://nburns.tech/archive/</loc>
+  </url><url>
+    <loc>https://nburns.tech/categories/</loc>
+  </url><url>
+    <loc>https://nburns.tech/posts/example-copy/</loc>
+  </url><url>
+    <loc>https://nburns.tech/library/</loc>
+  </url><url>
+    <loc>https://nburns.tech/tags/</loc>
+  </url>
+</urlset>
