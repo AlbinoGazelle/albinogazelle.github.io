@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://nburns.tech/sitemap.xml
