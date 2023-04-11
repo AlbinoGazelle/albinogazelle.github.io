@@ -8,3 +8,5 @@ summary: "Library"
 This is where I store every link, book or video that I feel like has had an great impact on how I work or live my life.
 
 ### Books
+
+- Command & Control
