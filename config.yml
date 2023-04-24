@@ -27,7 +27,7 @@ params:
   disableThemeToggle: false
 
   ShowReadingTime: false
-  ShowShareButtons: true
+  ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
@@ -39,13 +39,13 @@ params:
   comments: false
   hidemeta: false
   hideSummary: false
-  showtoc: false
+  showtoc: true
   tocopen: false
 
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "<link / abs url>"
+    favicon: "favicon.svg"
     favicon16x16: "<link / abs url>"
     favicon32x32: "<link / abs url>"
     apple_touch_icon: "<link / abs url>"
@@ -65,12 +65,13 @@ params:
     imageWidth: 400
     imageHeight: 375
     imageTitle: profile picture
-    buttons:
-      - name: Posts
-        url: posts
-      - name: Archive
-        url: archive
-
+#    buttons:
+#      - name: Posts
+#        url: posts
+#      - name: Archive
+#        url: archive
+#      - name: About
+#        url: about
   # home-info mode
   homeInfoParams:
     Title: "Hi there \U0001F44B"
@@ -85,6 +86,8 @@ params:
       url: "https://github.com/albinogazelle"
     - name: email
       url: "mailto:contact@nburns.tech"
+    - name: goodreads
+      url: "https://www.goodreads.com/review/list/132837721"
 
   analytics:
     google:
@@ -100,7 +103,7 @@ params:
     hiddenInSingle: true # hide on single page
 
   editPost:
-    URL: "https://github.com/<path_to_repo>/content"
+    URL: "https://github.com/AlbinoGazelle/albinogazelle.github.io/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
@@ -119,14 +122,19 @@ menu:
     - identifier: Posts
       name: Posts
       url: /posts/
-      weight: 10
+      weight: 1
     - identifier: Archive
       name: Archive
       url: /archive/
-      weight: 10
+      weight: 4
     - identifer: Library
       name: Library
       url: /library/
+      weight: 3
+    - identifer: About
+      name: About
+      url: /about/
+      weight: 2
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
