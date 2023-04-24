@@ -10,25 +10,30 @@
       <link>https://nburns.tech/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 08 Apr 2023 13:28:18 -0700</lastBuildDate><atom:link href="https://nburns.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Apr 2023 13:28:18 -0700</lastBuildDate><atom:link href="https://nburns.tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Example</title>
-      <link>https://nburns.tech/posts/example/</link>
-      <pubDate>Sat, 08 Apr 2023 13:28:18 -0700</pubDate>
+      <title>Updated Website &amp; New Tool Release</title>
+      <link>https://nburns.tech/posts/create_detections/</link>
+      <pubDate>Sun, 23 Apr 2023 13:28:18 -0700</pubDate>
       
-      <guid>https://nburns.tech/posts/example/</guid>
-      <description>Hello World! </description>
+      <guid>https://nburns.tech/posts/create_detections/</guid>
+      <description>After going back and forth on website layouts, I think I&amp;rsquo;ve finally landed.
+For those of you who visited my previous website (there are dozens of us!), you&amp;rsquo;ll probably notice a change.
+I&amp;rsquo;ve switched from Docusaurus to Hugo with the PaperMod theme.
+The TLDR is that Hugo is more simple, has a more active theme ecosystem, and fits my use-case better.
+What does this mean for my website? Well besides the obvious facelift, due to Hugo&amp;rsquo;s simplicity expect more regular posts from me.</description>
     </item>
     
-    
     <item>
-      <title>Example</title>
-      <link>https://nburns.tech/posts/example-copy/</link>
+      <title></title>
+      <link>https://nburns.tech/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://nburns.tech/posts/example-copy/</guid>
-      <description>Welcome to my library. This is where I store every link, book or video that I feel like has had an impact on how I work or live.</description>
+      <guid>https://nburns.tech/about/</guid>
+      <description>whoami I&amp;rsquo;m currently a Threat Hunting Engineer at Autodesk. I attempt to write down my semi-coherent thoughts here as well as on Twitter and LinkedIn, although the former not as much anymore. In my free time I enjoy kayaking, photography, reading, cooking and hiking. I&amp;rsquo;m from the PNW, what can I say.
+I received my Associates in Computer Security from Lake Washington Institute of Technology in 2019 and my Bachelors in Cybersecurity from Western Washington University in 2022.</description>
     </item>
+    
     
     <item>
       <title>Library</title>

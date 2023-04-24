@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://nburns.tech/posts/example/</loc>
-    <lastmod>2023-04-08T13:28:18-07:00</lastmod>
-  </url><url>
     <loc>https://nburns.tech/</loc>
-    <lastmod>2023-04-08T13:28:18-07:00</lastmod>
+    <lastmod>2023-04-23T13:28:18-07:00</lastmod>
   </url><url>
     <loc>https://nburns.tech/posts/</loc>
-    <lastmod>2023-04-08T13:28:18-07:00</lastmod>
+    <lastmod>2023-04-23T13:28:18-07:00</lastmod>
+  </url><url>
+    <loc>https://nburns.tech/posts/create_detections/</loc>
+    <lastmod>2023-04-23T13:28:18-07:00</lastmod>
+  </url><url>
+    <loc>https://nburns.tech/about/</loc>
   </url><url>
     <loc>https://nburns.tech/archive/</loc>
   </url><url>
     <loc>https://nburns.tech/categories/</loc>
-  </url><url>
-    <loc>https://nburns.tech/posts/example-copy/</loc>
   </url><url>
     <loc>https://nburns.tech/library/</loc>
   </url><url>
