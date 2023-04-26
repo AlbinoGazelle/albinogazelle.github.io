@@ -13,10 +13,10 @@
     <lastBuildDate>Sun, 23 Apr 2023 13:28:18 -0700</lastBuildDate><atom:link href="https://nburns.tech/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Updated Website &amp; New Tool Release</title>
-      <link>https://nburns.tech/posts/create_detections/</link>
+      <link>https://nburns.tech/posts/update-and-tool/</link>
       <pubDate>Sun, 23 Apr 2023 13:28:18 -0700</pubDate>
       
-      <guid>https://nburns.tech/posts/create_detections/</guid>
+      <guid>https://nburns.tech/posts/update-and-tool/</guid>
       <description>After going back and forth on website layouts, I think I&amp;rsquo;ve finally landed.
 For those of you who visited my previous website (there are dozens of us!), you&amp;rsquo;ll probably notice a change.
 I&amp;rsquo;ve switched from Docusaurus to Hugo with the PaperMod theme.
