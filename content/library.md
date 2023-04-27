@@ -6,7 +6,7 @@ showtoc: false
 ---
 ## Welcome to my library. 
 
-This is where I store every link, book, or video that I feel like has had an great impact my life.
+This is where I store every link, book, or video that I feel like has had an impact my life.
 
 ### Books
 
