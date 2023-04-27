@@ -2,6 +2,7 @@
 title: "Library"
 layout: "library"
 summary: "Library"
+showtoc: false
 ---
 ## Welcome to my library. 
 
