@@ -23,4 +23,5 @@ This is where I store every link, book, or video that I feel like has had an imp
 
 ### Papers & Blogs
 
+- [Sid's Blog](https://swlacy.com)
 - [TTP-Based Hunting - MITRE](https://www.mitre.org/sites/default/files/2021-11/prs-19-3892-ttp-based-hunting.pdf)
