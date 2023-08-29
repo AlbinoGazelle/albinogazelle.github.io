@@ -14,6 +14,7 @@ This is where I store every link, book, or video that I feel like has had an imp
 - All Quiet on the Western Front
 - How to Take Smart Notes
 - This Is How They Tell Me The World Ends
+- Killers of the Flower Moon
 
 ### Videos
 
